@@ -1,7 +1,7 @@
 
 \documentclass[11pt]{article}
 
-\usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath,tikz}
+\usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath,tikz,hyperref}
 
 \newcommand{\depth}{{\mbox{\it depth}}}
 \newcommand{\level}{{\mbox{\it level}}}
@@ -65,7 +65,7 @@ Suppose that we are using disjoin-set forests with union by rank and path compre
 Draw the forest (a) after $\Union(17,20)$, (b) after $\Union(14,20)$, (c) after $\Union(13,5)$. Assume that whenever we execute $\Union(x,y)$, then we first do $\Find(x)$, $\Find(y)$, and then the union for the roots. (This slightly differs from the lecture.)
 \end{problem}
 
-\paragraph{Answer}
+\paragraph{Answer:}
 (a). After $\Union(17,20)$, union by rank has a same graph as path compression:
 
 \begin{tikzpicture}
@@ -120,6 +120,7 @@ Draw the forest (a) after $\Union(17,20)$, (b) after $\Union(14,20)$, (c) after 
             child{ node[node] {14}
                 child{ node[node] {13}}
             }
+            child{ node[node] {15}}
         }
         child{ node[node] {18}
             child{ node[node] {17}}
@@ -161,6 +162,37 @@ Path compression:
 
 (c). After $\Union(13,5)$, union by rank:
 
+\begin{tikzpicture}
+    \node[node] at (12,0) {20}
+        child{ node[node] {16}
+            child{ node[node] {14}
+                child{ node[node] {13}}
+            }
+            child{ node[node] {15}}
+        }
+        child{ node[node] {18}
+            child{ node[node] {17}}
+        }
+        child{ node[node] {19}}
+        child{ node[node] {4}
+            child{ node[node] {2}
+                child{ node[node] {1}}}
+            child{ node[node] {3}}
+        }
+        child{ node[node] at (2,0) {12}
+            child{ node[node] {8}
+                child{ node[node] {6}
+                    child{ node[node] {5}}
+                }
+                child{ node[node] {7}}
+            }
+            child{ node[node] {10}
+                child{ node[node] {9}}
+            }
+            child{ node[node] {11}}
+        };
+\end{tikzpicture}
+
 Path compression:
 
 \begin{tikzpicture}
@@ -198,6 +230,17 @@ Path compression:
 \begin{problem} \text{(10 points)}
 Let {\sf NetFlow} stand for the network flow problem, as covered in class. Consider a generalized network flow problem {\sf NetFlowVC}, in which capacities are defined both for edges and vertices. In this version, the total flow into a vertex cannot exceed the given capacity. Show that {\sf NetFlowVC} can be reduced to {\sf NetFlow}, and that its time complexity is the same.
 \end{problem}
+
+\paragraph{Answer:}
+The steps are as follow: first we can ocnvert the graph $G=(V,E)$ with node capacities to an equivalent graph $G'$ that only has edge capacities.
+Second, we need to show that new graph $G'$ satisfies three constraints for the normal max-flow problem. \\
+For each node $v$ with node capacity $c_v$ in $G$ except $s, t$, we can convert it to an edge $(v_{in}, v_{out})$. All the edges into $v$ is now connected to $v_{in}$, and edges out of $v$ is connected to $v_{out}$. The edge $(v_{in}, v_{out})$ will have a capacity of $c_v$. \\
+For capacity constraint, for each node $v$ in $G$ except $s, t$, $f(v) \leq c_v$. In $G'$, the total incomming flow into node $v_{in}$ is no more than the capacity of edge $(v_{in}, v_{out})$.
+For conversation constraint, for each node $v$ in $G$ except $s, ,t$, the total flow into $v$ equal to total flow out of it. So, in $G'$, flows into $v_{in}$ equal to flows out of $v_{out}$, which also equal to the flow from $v_{in}$ to $v_{out}$.
+For symmetry constraint, for each $(v_{in}, v_{out})$ in $G'$, $f(v_{in}, v_{out}) = -f(v_{out}, v_{in})$.
+Therefore, {\sf NetFlowVC} can be reduced to {\sf NetFlow} with same time complexity.
+
+(Reference: \url{https://cseweb.ucsd.edu/classes/sp16/cse202-a/hw3sol.pdf})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
