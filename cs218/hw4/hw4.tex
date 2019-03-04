@@ -1,0 +1,77 @@
+
+\documentclass[11pt]{article}
+
+\usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath}
+
+\input{../macros.tex}
+
+\newcommand{\Greedy}{\mbox{\sc Greedy}}
+\pagestyle{empty}
+\begin{document}
+
+\centerline{\large \bf CS218 ASSIGNMENT 4}
+\centerline{due Thursday, March 7, at 5PM}
+
+\vskip 0.1in
+\noindent
+{\bf Individual assignment: Problems 1,2}
+
+\noindent
+{\bf Group assignment: Problems 1,2,3}
+
+\vskip 0.1in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{problem}
+You are about to go backpacking with a friend and you have to spread the load fairly among your two backpacks. You have $n$ items, with item $i$ having weight $w_i$. Your goal is to assign each item to backpack 1 or backpack 2 to minimize the maximum load. Consider the following algorithm:
+%
+\begin{description}
+\item{{\Greedy}:} Consider items in order $i=1,\dots,n$. At step $i$ assign item $i$ to the backpack whose current load is light:est.
+\end{description}
+%
+If $Y$ is a solution (a partition of the items between the two backpacks) by $w(Y)$ we denote its value, that is the weight of the heavier backpack.
+
+Consider the solution $X$ computed by {\Greedy} and the optimum solution $X^\ast$.
+
+\noindent
+(a) Prove that $w(X)\le 2\cdot w(X^\ast)$. (5 points.)
+
+\noindent
+(b) Prove that $w(X) \le 1.5\cdot w(X^\ast)$. (7 points.)
+
+If you do (b), do not do (a).
+
+\noindent
+(c) Show that there is an instance for which the bound in (b) is tight.
+(3 points.) \end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+We are given a weighted complete bipartite graph $G = (L,R,L\times R)$, where $L = \braced{x_1,\dots,x_n}$, $R = \braced{ y_1,\dots,y_m}$, with $n \le m$. By $w_{i,j}$ we denote the weight of edge $(x_i,y_j)$.
+
+An \emph{agreeable} matching $M$ is a matching between $L$ and $R$ in which no two edges ``cross". More specifically, if $i<j$ and $(x_i,y_k), (x_j,y_l)\in M$ then $k < l$. The weight of $M$ is the sum of weights of the edges in $M$.
+
+Give an efficient algorithm that computes a perfect agreable matching in $G$ of minimum weight (``perfect" means that each $x_j$ is matched.)
+
+\noindent Hint: Dynamic programming.
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Bob sells two types of ice cream: vanilla and chocolate. He has an ice cream machine that can produce vanilla ice cream at cost $\$ V$/gallon and chocolate ice cream at cost $\$ C$/gallon. However, resetting the machine from producing vanilla to chocolate icea cream, or vice versa, costs $\$ R$.
+He can produce ice cream without using his machine, but then it costs $\$ V'$/gallon for vanilla and $\$ C'$/gallon for chocolate ice cream. (Typically, $V' > V$ and $C' > C$.) Give an algorithm that, for a  given a sequence of orders $o_1\dots o_n$, where each $o_i \in\braced{v,c}$ is an order for a gallon of vanilla or chocolate, computes the minimum
+cost of realizing these orders.
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip 0.3in
+\paragraph{Submission.}
+Submit the pdf file via gradescope by 5PM on Thursday, March~7. For pair assignments, submit one pdf only with two names on it.
+
+\end{document}
+
