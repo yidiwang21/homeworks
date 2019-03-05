@@ -1,7 +1,9 @@
 
 \documentclass[11pt]{article}
 
-\usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath}
+\usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath,algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{xspace}
 
 \input{../macros.tex}
 
@@ -58,6 +60,39 @@ Give an efficient algorithm that computes a perfect agreable matching in $G$ of 
 
 \noindent Hint: Dynamic programming.
 \end{problem}
+
+\paragraph{Answer:}\mbox{} \\
+\textbf{Subproblem:}
+The agreeable matching in the sub-bipartite of graph $G$.\newline
+We can use a table $w$ to store the vertices connection of the bipartite. The size of $w$ is $|X|$ by $|Y|$. The value of $w[i][j]$ is the weight of edge $(x_i,y_j)$. If there is no edge $(x_i,y_j)$, then the value of $w[i][j]$ is infinite.
+At each edge, we decide to choose it or not, then we store the total weight in a new table $M$ of the same size as $w$.\newline
+We only need to consider the upper diagonal part of the table for "not-cross" and "perfect" constraints, and also the bipartite is complete. The reason why we don't need to consider the lower diagonal part is that each $x_i$ should be matched. The indexes in the lower part satisfies $i>j$, which cannot guarantee that every vertix in $X$ is matched. \newline
+\textbf{Recursion:}
+\begin{gather*}
+    M_{i,j} = min(M_{i-1,j-1}+w_{i,j}, M_{i,j-1})
+\end{gather*}
+\begin{algorithm}
+    \begin{algorithmic}[1]
+    \caption{Perfect Agreeable Matching}
+        \State $\textbf{Input: } \text{table of weights } \textit{w[1,...,m][1,...,n]}$
+        \State $\textit{m} \gets \text{length of } \textit{X}$
+        \State $\textit{n} \gets \text{length of } \textit{Y}$
+        \State \text{create a table } $M[0,...,m][0,...,n]$
+        \For{$j \gets 0$ to $n$}
+            \State $M_{0,j} \gets$ $min(w_{1,:})$
+        \EndFor
+        \For{$i \gets 1$ to $m$}
+            \State $M_{i,i-1} \gets \infty$
+        \EndFor
+        \For{$i \gets 1$ to $m$}
+            \For{$j \gets 1$ to $n$}
+                \State $M_{i,j} = min(M_{i-1,j-1}+w_{i,j}, M_{i,j-1})$
+            \EndFor
+        \EndFor
+        \Return $M_{m,n}$
+    \end{algorithmic}
+\end{algorithm}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
