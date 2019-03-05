@@ -8,6 +8,7 @@
 \input{../macros.tex}
 
 \newcommand{\Greedy}{\mbox{\sc Greedy}}
+\newcommand{\Optimum}{\mbox{\sc Optimum}}
 \pagestyle{empty}
 \begin{document}
 
@@ -47,7 +48,50 @@ If you do (b), do not do (a).
 
 \noindent
 (c) Show that there is an instance for which the bound in (b) is tight.
-(3 points.) \end{problem}
+(3 points.) 
+\end{problem}
+
+\paragraph{Answer:}\mbox{} \\
+Suppose that the load in backpack 1 is always no less than backpack 2.\newline
+(a). Assume that the total weight of all the items is $W$. The worst case of $w(X)$ is that it is infinitly close to $W$. Since $X^\ast$ is the optimal solution, the items should be assigned to the backpacks as evenly as possible. So, $w(X^\ast)$ cannot be smaller than the half of $W$.
+\newline
+(b). The worst case will happen when the difference between $X$ and $X^\ast$ is maximized. Worst case: the first $k$ items in backpack 1 overlap in $X$ and $X^\ast$, the difference start from the $k+1$ $th$ item. \newline
+\textbf{Why a worst case has to come from this situation?}\newline
+Before $k+1$ $th$ item is pushed to either backpack, $X$ is an optimum, which is the same as $X^\ast$. If the $k+1$ $th$ item has a weight much bigger than the previous $k$ items, and it is assigned to backpack 1, then satrting from $k+2$ $th$ item, the following items have to be assigned to backpack 2 to compensate the difference caused at the $k+1$ $th$ item.
+The worst case can be simplified to a unit case: $n-1$ items with small weight, and one item with large weight. Assume that the first $n-1$ items;s weight is $a$ each, and the last one has a weight of $m \cdot a$. \newline
+{\Greedy}:
+\begin{gather*}
+    bp1 \gets \frac{n}{2} \cdot a + m \cdot a   \\
+    bp2 \gets \frac{n}{2} \cdot a               \\
+\end{gather*}
+{\Optimum}:\newline
+If $m > n$:
+\begin{gather*}
+    bp1^ \gets m \cdot a                     \\
+    bp2 \gets n \cdot a                     \\
+\end{gather*}
+If $m \leq n$:
+\begin{gather*}
+    bp1 \gets \frac{n-m}{2} \cdot a + m \cdot a   \\
+    bp2 \gets \frac{n-m}{2} \cdot a + m \cdot a   \\
+\end{gather*}
+Then we can get the relationship between $w(X)$ and $w(X^\ast)$.\newline
+If $m > n$:
+\begin{gather*}
+    w(X) \gets \frac{n}{2} \cdot a + m \cdot a  \\
+    w(X^\ast) \gets m \cdot a                   \\
+    \frac{w(X)}{w(X^\ast)} = \frac{n + 2 \cdot m}{2 \cdot m} < \frac{3 \cdot m}{2 \cdot m} = 1.5
+\end{gather*}
+If $m \leq n$:
+\begin{gather*}
+    w(X) \gets \frac{n}{2} \cdot a + m \cdot a          \\
+    w(X^\ast) \gets \frac{n-m}{2} \cdot a + m \cdot a   \\
+    \frac{w(X)}{w(X^\ast)} = \frac{n + 2 \cdot m}{n + m} = 1 + \frac{m}{n + m} \leq 1 + \frac{m}{2 \cdot m} = 1.5
+\end{gather*}
+(c). Consider we have a set of items: $n-1$ items weight a, and one item weights $(n-1) \cdot a$. \newline
+According to {\Greedy}, the load of backpack 1 is $\frac{n}{2} \cdot a + (n-1) \cdot a = \frac{3(n-1)}{2} \cdot a$. The load of  the second backpack is $(n-1) \cdot a$. Then $w(X) = \frac{3(n-1)}{2} \cdot a$.
+The optimal solution $w(X^\ast)$ is: $(n-1) \cdot a$. \newline
+In this case, $w(X) = 1.5\cdot w(X^\ast)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
