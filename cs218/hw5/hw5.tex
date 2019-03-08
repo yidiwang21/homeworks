@@ -1,0 +1,111 @@
+
+\documentclass[11pt]{article}
+
+\usepackage{fullpage,latexsym,picinpar,amsbsy,amsmath, algorithm,amssymb}
+\usepackage[noend]{algpseudocode}
+\usepackage{xspace}
+
+\input{../macros.tex}
+
+\pagestyle{empty}
+\begin{document}
+
+\centerline{\large \bf CS218 ASSIGNMENT 5}
+\centerline{due Thursday, March 14, at 5PM}
+
+\vskip 0.2in
+\noindent
+{\bf Individual assignment: Problem 1, 2}
+
+\noindent
+{\bf Group assignment: Problems 1, 2, 3}
+
+\vskip 0.1in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Give an efficient algorithm that, given a set $X =\{x_1,\dots,x_n\}$ of points on the real line, ordered from left to right, and a number $c > 0$,
+determines the smallest set of length-$c$ closed intervals that together contain all points in $X$. Prove the correctness of your algorithm. 
+Give its running time and justify your answer. (Again, we assume that the points are already given in increasing order, so they don't need to be sorted.) 
+
+\noindent\emph{Hint: Similar to activity selection.}
+\end{problem}
+
+\paragraph{Answer:}\mbox{} \\
+\textbf{Greedy choice: }Let's choose the first closed interval starting from the first point in set X, which is $[x_1, x_1+c]$. Then we check whether there is any point in $X$ covered by this interval, if yes, supposing that the last covered point is $x_i$, we do the same thing starting from $x_{i+1}$; if no, we just continue iteration at $x_2$. \newline
+We only need one pass the input point set, so running time is $O(n)$.\newline
+\textbf{Correctness: }Suppose that the computed solution of the above greedy choice is $S$, and there is an optimal solution $S'$. If $S'$ equals $S$ , then we are done. If not, suppose that preceeding point $x_i$, $S$ and $S'$ overlap. After $x_i$, $S$ contains an interval $[x_{i+1}, x_{i+1}+c]$, but $S'$ contains a different interval $[y_{i+1}, y_{i+1}+c]$. If we replace this interval in $S'$ by what is in $S$, this operation will not affect the subsequences in $S'$, since $y_{i+1}$ must be smaller than $x_{i+1}$. Then we can do this iteratively, and finally make $S'$ equal to $S$; therefore, $S$ is an optimal solution.
+
+\begin{algorithm}
+    \begin{algorithmic}[1]
+    \caption{Smallest Set of Intervals}
+        \State $\textbf{Input: } X =\{x_1,\dots,x_n\}$
+        \State $i \gets 0$
+        \State $C \gets \emptyset$
+        \While {$X \text{ is not empty}$}
+            \State $\text{add closed interval } [x_i, x_i+c] \text{ to } C$
+            \State $j \gets 0$
+            \While {$x_j \leq x_i+c$}
+                \State $\text{remove } x_j \text{ from } X$    
+                \State $j \gets j+1$
+            \EndWhile
+            \State $i \gets i+1$
+        \EndWhile
+        \Return $C$
+    \end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Call two integer sequences $A = a_1,a_2,...,a_k$ and $B = b_1,b_2,...,b_k$ \emph{resemblant}  if $|a_i - b_i| \le 1$ for all $i$. In other words, the sequences have the same length and  in each position their values differ by at most $1$. The \emph{distance} between two such sequences $A$ and $B$ is defined by $\delta(A,B) = \sum_{i=1}^k |a_i - b_i|$. Note that $0 \le \delta(A,B)\le k$.
+
+Design an efficient algorithm that, given two integer sequences $X = x_1,x_2,...,x_m$ and $Y = y_1,y_2,...,y_n$ and some integer $d\ge 0$, 
+finds resemblant subsequences $A$ of $X$ and $B$ of $Y$ that satisfy $\delta(A,B) \le d$ 
+and have maximum length. Justify its correctness.  State and justify its time and space complexity.  
+
+\noindent\emph{Hint: Similar to LIS.}
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+We are given $n$ items numbered $1,2,...,n$, 
+each item $i$ with size $s_i$ and 
+value $v_i$ (both values are non-negative integers).
+We are also given some
+threshold value $V$. We want to determine the 
+minimum size of a knapsack sufficient to pack
+a subset of items with total value at least $V$ (also a non-negative
+integer).
+More formally, we need to compute a subset
+$I \subseteq \braced{1,2,...,n}$ such that
+$v(I) = \sum_{i\in I} v_i \ge V$ and
+$s(I) = \sum_{i\in I} s_i$ is minimized.
+Give an efficient algorithm
+for this problem. State and justify its time and space complexity.
+(Here, ``efficient'' means that
+the algorithm is fast if the numbers $v_i$ are 
+not too large.) 
+
+\noindent\emph{Hint: Similar to Knapsack.} 
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+\vskip 0.3in
+\paragraph{Submission.}
+Submit the pdf file via gradescope by 5PM on Thursday, March~14.
+For pair assignments, submit one pdf only with two names on it.
+
+\end{document}
+
