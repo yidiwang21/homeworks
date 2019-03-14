@@ -65,30 +65,70 @@ Design an efficient algorithm that, given two integer sequences $X = x_1,x_2,...
 finds resemblant subsequences $A$ of $X$ and $B$ of $Y$ that satisfy $\delta(A,B) \le d$ 
 and have maximum length. Justify its correctness.  State and justify its time and space complexity.  
 
-\noindent\emph{Hint: Similar to LIS.}
+\noindent\emph{Hint: Similar to LCS.}
 \end{problem}
 
+\paragraph{Answer: }\mbox{} \\
+This problem is similar to LCS. The difference is that we can keep two tables: the first one stores the distances, and the second one stores the length of resemblant sequences. \newline
+\textbf{Recurrence: }
+\begin{gather*}
+    R_{i,j} \gets R_{i-1,j-1} + 1
+\end{gather*}
+\textbf{Correctness: }The correctness can be proved by claiming that every entry of the table is computed correctly, then using induction to prove over the algorihtm execution. \newline
+\text{Claim: }For all $i \in \{0,..,m\}$ and $j \in \{0,..,n\}$, $R_{i,j} = Resemblant[X^i, Y^j]$. \newline
+\text{Proof of Claim: }\newline
+When $i = 0$, $j = 0$, $R_{i,j} = 0$ is obviously correct, which is the basic case. Consider some entry $R_{i,j}$, and assume that for all $i' + j' < i + j$, the claim holds for $R_{i',j'}$. Let $\{A^i, B^j\}$ be the solution of $\{X^i, Y^j\}$. \newline
+If $|x_i - y_j| \leq 1$, according to the reccurence, the remainder of $I$ must be the longest resemblant sequences of $X^{i-1}$ and $Y^{j-1}$. Then it will induct to $R_{i,j} \gets R_{i-1,j-1} + 1$, which is our induction hypothesis.
+Otherwise, let $(c_a, c_b)$ be the last pair in the solution. If $c_a \neq X_i$, then $\{A^i, B^j\}$ must be the solution for $\{X^{i-1}, Y^j\}$. Similarly, If $c_b \neq Y_j$, then $\{A^i, B^j\}$ must be the solution for $\{X^i, Y^{j-1}\}$. Either $R_{i,j} = R_{i-1,j}$ or $R_{i,j} = R_{i,j-1})$ must be correct. Taking $R_{i,j} = max(R_{i-1,j}, R_{i,j-1})$ gives an correct solution. \newline
+\textbf{Running time: }Time complexity: $O(n^2)$. Space complexity: $O(1)$.
 
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \caption{Resemblant Sequences}
+        \State $\textbf{Input: } X =\{x_1,\dots,x_m\}$, $Y =\{y_1,\dots,y_n\}$, $d$
+        \State $m \gets |X|$, $n \gets |Y|$
+        \State create a table $D[0,1,...,m][0,1,...,n]$ to store distances
+        \State create a table $R[0,1,...,m][0,1,...,n]$ to store length of resemblant sequences
+        \For{$i \gets 0$ to $m$}
+            \State $D_{i,0} \gets 0$
+            \State $R_{i,0} \gets 0$
+        \EndFor
+        \For{$j \gets 0$ to $n$}
+            \State $D_{0,j} \gets 0$
+            \State $R_{0,j} \gets 0$
+        \EndFor
+        \For{$i \gets 1$ to $m$}
+            \For{$j \gets 1$ to $n$}
+                \If{$D_{i,j} < d$}
+                    \If{$|X_i - Y_j| \leq 1$}
+                        \State $R_{i,j} \gets R_{i-1,j-1} + 1$
+                        \State $D_{i,j} \gets D_{i-1,j-1} + |X_i - Y_j|$
+                    \Else
+                        \State $R_{i,j} \gets max(R_{i-1,j}, R_{i,j-1})$
+                        \State $D_{i,j} \gets max(D_{i-1,j}, D_{i,j-1})$
+                    \EndIf
+                \EndIf
+            \EndFor
+        \EndFor
+        \For{$i \gets m$ to $0$}
+            \For{$j \gets m$ to $0$}
+                \If{$D_{i,j} \leq d$}
+                    \Return $R_{i,j}$
+                \EndIf
+            \EndFor
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{problem}
-We are given $n$ items numbered $1,2,...,n$, 
-each item $i$ with size $s_i$ and 
-value $v_i$ (both values are non-negative integers).
-We are also given some
-threshold value $V$. We want to determine the 
-minimum size of a knapsack sufficient to pack
-a subset of items with total value at least $V$ (also a non-negative
-integer).
-More formally, we need to compute a subset
-$I \subseteq \braced{1,2,...,n}$ such that
-$v(I) = \sum_{i\in I} v_i \ge V$ and
-$s(I) = \sum_{i\in I} s_i$ is minimized.
-Give an efficient algorithm
-for this problem. State and justify its time and space complexity.
-(Here, ``efficient'' means that
-the algorithm is fast if the numbers $v_i$ are 
-not too large.) 
+We are given $n$ items numbered $1,2,...,n$, each item $i$ with size $s_i$ and value $v_i$ (both values are non-negative integers). We are also given some threshold value $V$. We want to determine the minimum size of a knapsack sufficient to pack a subset of items with total value at least $V$ (also a non-negative
+integer). More formally, we need to compute a subset $I \subseteq \braced{1,2,...,n}$ such that $v(I) = \sum_{i\in I} v_i \ge V$ and $s(I) = \sum_{i\in I} s_i$ is minimized.
+Give an efficient algorithm for this problem. State and justify its time and space complexity. 
+(Here, ``efficient'' means that the algorithm is fast if the numbers $v_i$ are not too large.) 
 
 \noindent\emph{Hint: Similar to Knapsack.} 
 \end{problem}
