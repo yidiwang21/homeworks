@@ -2018,7 +2018,15 @@ f = 0:fs/num_sample:fs-fs/num_sample;
 X = abs(fftshift(fft(V)));
 
 figure;
+subplot(2,1,1);
+pspectrum(V,fs);
+xlabel('Time(sec)');
+ylabel('Magnitude');
+title('Frequency Spectrum');
+
+subplot(2,1,2);
 plot(f,X);
 xlabel('Frequency(Hz)');
 ylabel('Magnitude');
-title('Frequency Spectrum');
+ylabel('Magnitude');
+title('Frequency Analysis');
