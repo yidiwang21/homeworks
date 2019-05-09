@@ -1,7 +1,0 @@
-import networkx as nx
-import matplotlib.pyplot as plt
-
-g = nx.read_edgelist('graph.txt')
-
-nx.draw(g)
-plt.show()
