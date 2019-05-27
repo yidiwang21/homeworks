@@ -41,6 +41,17 @@ for i = 1:24
 end
 
 % how to plot?
-real_v3 = real(v3);
-imag_v3 = imag(v3);
-plot(real_v3, imag_v3, 'g*');
+amp_v3 = zeros(24, 1);
+ang_v3 = zeros(24, 1);
+for i = 1:24
+    amp_v3(i) = sqrt(real(v3(i))^2 + imag(v3(i))^2);
+    ang_v3(i) = angle(v3(i));
+end
+
+figure;
+subplot(2,1,1);
+plot(amp_v3);
+title('Amplitude of voltage at bus 3');
+subplot(2,1,2);
+plot(ang_v3);
+title('Angle of voltage at bus 3');

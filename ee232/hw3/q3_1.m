@@ -1,11 +1,20 @@
 clear; clc;
 data = csvread('DataHW3Q3.csv', 1, 1, [1,1,8928,1]);
 
+% get the training data
 W = zeros(288, 21);
 
 for j = 1:21
     for i = 1:288
        W(i,j) = data( j * 288 + i);
+    end
+end
+
+% get all the data
+Y = zeros(288, 28);
+for k = 1:28
+    for i = 1:288
+        Y(i,k) = data( k * 288 + i);
     end
 end
 
@@ -27,10 +36,20 @@ for i = 1:288
     A(i) = a;
 end
 
-%%
-p = zeros(288, 1);
-for i = 1:288
-    p(i) = A(i) * W(i,21);
-end
+%% predict
+p = zeros(288, 7);
 
-plot(p);
+% Day j + 21
+for j = 1:7
+    for i = 1:288
+        p(i,j) = A(i) * Y(i,21 + j -1);
+    end
+
+
+    figure(j);
+    plot(p(:,j)); hold on;
+    plot(Y(:,21+j)); hold off
+    legend('prediction','reality')
+    title(['Prediction of Day', num2str(21+j)]);
+
+end

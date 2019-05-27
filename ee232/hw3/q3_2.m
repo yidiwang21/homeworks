@@ -9,6 +9,14 @@ for j = 1:21
     end
 end
 
+% get all the data
+Y = zeros(288, 28);
+for k = 1:28
+    for i = 1:288
+        Y(i,k) = data( k * 288 + i);
+    end
+end
+
 %% window size = past 2 days
 wlhs = zeros(288, 19);
 wrhs1 = zeros(288, 19);
@@ -32,10 +40,19 @@ for i = 1:288
     A(i,1) = a1; A(i,2) = a2;
 end
 
-%%
-p = zeros(288, 1);
-for i = 1:288
-    p(i) = A(i,1) * W(i,21) + A(i,2) * W(i,20);
-end
+%% predict
+p = zeros(288, 7);
 
-plot(p);
+% Day j + 21
+for j = 1:7
+    for i = 1:288
+        p(i,j) = A(i,1) * Y(i,21+j-1) + A(i,2) * Y(i,20+j-1);
+    end
+
+    figure(j);
+    plot(p(:,j)); hold on;
+    plot(Y(:,21+j)); hold off
+    legend('prediction','reality')
+    title(['Prediction of Day', num2str(21+j)]);
+
+end
