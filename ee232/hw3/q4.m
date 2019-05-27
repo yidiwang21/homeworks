@@ -18033,6 +18033,7 @@ h = [0:1:17999] / 3600;
 figure;
 plot(h, SoC); grid on;
 xlabel('Time (Hour)'); ylabel('SoC');
+title('Ideal Soc vs. time');
 
 %% 
 
@@ -18058,3 +18059,4 @@ h = [0:1:17999] / 3600;
 figure;
 plot(h, SoC); grid on;
 xlabel('Time (Hour)'); ylabel('SoC');
+title('Non-ideal Soc vs. time');

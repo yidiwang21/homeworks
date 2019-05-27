@@ -55,16 +55,16 @@ end
 %% predict
 p = zeros(288, 7);
 
+figure;
 % Day j + 21
 for j = 1:7
     for i = 1:288
         p(i,j) = A(i,1) * Y(i,21+j-1) + A(i,2) * Y(i,20+j-1) + A(i,3) * Y(i,19+j-1) + A(i,4) * Y(i,18+j-1) + A(i,5) * Y(i,17+j-1) + A(i,6) * Y(i,16+j-1) + A(i,7) * Y(i,15+j-1);
     end
 
-    figure(j);
+    subplot(7,1,j);
     plot(p(:,j)); hold on;
     plot(Y(:,21+j)); hold off
-    legend('prediction','reality')
     title(['Prediction of Day', num2str(21+j)]);
 
 end
