@@ -98,10 +98,15 @@ Yes. In the clean degree distribution figure, the majority of the nodes have a s
 \textbf{Part 1} \\
 
 
-
 \noindent
 \textbf{Part 2} \\
 (a). % TODO: compute square error
+\begin{verbatim}
+[u,s,v] = svds(A);
+ds = diag(s);
+dsp = norm(ds(n+1:end)) / norm(ds);
+\end{verbatim}
+I tried the above code with different $n$. When $n = 2$, the error is $0.1157$. When $n = 3$, the error is $0.0271$. So, if we want a reconstruction correctness larger than $90\%$, the number of singular value is 3.
 $$
 \begin{bmatrix} 
     1679.9  \\

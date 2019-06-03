@@ -57,7 +57,7 @@ ylabel('Degree'); xlabel('Node count');
 title('Degree Distribution in log-log scale');
 
 %% Question 3
-n = 2;
+n = 3;
 [u,s,v] = svds(A);
 ds = diag(s);
 dsp = norm(ds(n+1:end)) / norm(ds);
