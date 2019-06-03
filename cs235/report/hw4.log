@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.13)  1 JUN 2019 15:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.13)  3 JUN 2019 15:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,47 +285,53 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@lstlisting=\count132
-<figs/q1.jpg, id=1, 962.59625pt x 657.45625pt>
+<figs/q1.jpg, id=1, 455.7025pt x 421.575pt>
 File: figs/q1.jpg Graphic file (type jpg)
 <use figs/q1.jpg>
 Package pdftex.def Info: figs/q1.jpg  used on input line 59.
-(pdftex.def)             Requested size: 476.98244pt x 325.77792pt.
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/wyd/Documents/stud/homeworks/cs235/report/figs/q1.jpg>]
-<figs/q2.jpg, id=11, 1927.2pt x 958.58125pt>
+(pdftex.def)             Requested size: 255.19165pt x 236.08038pt.
+<figs/q2.jpg, id=2, 1628.0825pt x 858.20625pt>
 File: figs/q2.jpg Graphic file (type jpg)
 <use figs/q2.jpg>
 Package pdftex.def Info: figs/q2.jpg  used on input line 81.
-(pdftex.def)             Requested size: 476.98244pt x 237.24594pt.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 92.
- (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-Underfull \hbox (badness 10000) in paragraph at lines 96--99
+(pdftex.def)             Requested size: 476.98244pt x 251.42699pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--84
 
  []
 
-[2 </home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg>]
-<figs/q3.jpg, id=16, 1927.2pt x 1000.73875pt>
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </home/wyd/Documents/stud/homeworks/cs235/report/figs/q1.jpg>]
+LaTeX Font Info:    Try loading font information for U+lasy on input line 92.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [2 </home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg>]
+<figs/q3.jpg, id=16, 1604.99625pt x 874.26625pt>
 File: figs/q3.jpg Graphic file (type jpg)
 <use figs/q3.jpg>
-Package pdftex.def Info: figs/q3.jpg  used on input line 124.
-(pdftex.def)             Requested size: 476.98244pt x 247.6798pt.
- [3 </home/wyd/Documents/stud/homeworks/cs235/report/figs/q3.jpg>] [4] (/home/wyd/Documents/stud/homeworks/cs235/report/hw4.aux) ) 
+Package pdftex.def Info: figs/q3.jpg  used on input line 134.
+(pdftex.def)             Requested size: 476.98244pt x 259.81395pt.
+ [3]
+<figs/q3_d.jpg, id=22, 1632.0975pt x 370.38374pt>
+File: figs/q3_d.jpg Graphic file (type jpg)
+<use figs/q3_d.jpg>
+Package pdftex.def Info: figs/q3_d.jpg  used on input line 147.
+(pdftex.def)             Requested size: 476.98244pt x 108.24496pt.
+ [4 </home/wyd/Documents/stud/homeworks/cs235/report/figs/q3.jpg> </home/wyd/Documents/stud/homeworks/cs235/report/figs/q3_d.jpg>] (/home/wyd/Documents/stud/homeworks/cs235/report/hw4.aux) ) 
 Here is how much of TeX's memory you used:
- 4121 strings out of 492982
- 58210 string characters out of 6134896
+ 4128 strings out of 492982
+ 58309 string characters out of 6134896
  140901 words of memory out of 5000000
- 7609 multiletter control sequences out of 15000+600000
+ 7615 multiletter control sequences out of 15000+600000
  8452 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,40p,514b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,40p,671b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on /home/wyd/Documents/stud/homeworks/cs235/report/hw4.pdf (4 pages, 385358 bytes).
+Output written on /home/wyd/Documents/stud/homeworks/cs235/report/hw4.pdf (4 pages, 488799 bytes).
 PDF statistics:
- 48 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  31 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

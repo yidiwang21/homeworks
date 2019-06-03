@@ -104,10 +104,10 @@ INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q1.jpg
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q1.jpg
 OUTPUT /home/wyd/Documents/stud/homeworks/cs235/report/hw4.pdf
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q1.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
-INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
-INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
-INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q2.jpg
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
@@ -127,6 +127,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3.jpg
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3.jpg
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3_d.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3_d.jpg
+INPUT /home/wyd/Documents/stud/homeworks/cs235/report/figs/q3_d.jpg
 INPUT /home/wyd/Documents/stud/homeworks/cs235/report/hw4.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

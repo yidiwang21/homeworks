@@ -53,10 +53,10 @@ A = sparse(edgelist(:,1), edgelist(:,2), 1);
 
 \noindent
 \textbf{Part 2, 3} \\
-Three dense blocks are annotated by red circles.
-\begin{figure}[!h]
+There are mainly two dense blocks are annotated by red circles.
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{figs/q1.jpg}
+    \includegraphics[scale=0.56]{figs/q1.jpg}
     \caption{spy-plot}
     \label{fig::spy}
 \end{figure}
@@ -76,7 +76,7 @@ end
 
 \noindent
 \textbf{Part 2} \\
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{figs/q2.jpg}
     \caption{Degree distribution in log-log scale}
@@ -89,14 +89,24 @@ Yes. In the clean degree distribution figure, the majority of the nodes have a s
 
 \noindent
 \textbf{Part 4} \\
-(a). There are three abnormal blocks. They are annotated in red circles. Above the $10^2$ on the y axis in the above figure (when degree is big enough), there are three nearly horizontal lines, which means that there are many consecutive nodes having similar degrees. This will cause dense blocks in the sparse matrix.
+(a). There are mainly twoe abnormal blocks. They are annotated in red circles. Above the $10^2$ on the y axis in the above figure (when degree is big enough), there are two (near-)horizontal lines, which means that there are many consecutive nodes having similar degrees. This will cause dense blocks in the sparse matrix.c \\
 \noindent
-(b). The upper thick line area in Fig.\ref{fig::deg_log} is corresponding to the upper right dense block in Fig.\ref{fig::spy}. The lower left thick line in Fig.\ref{fig::deg_log} is corresponding to the lowest right dense block in Fig.\ref{fig::spy}. And the middle thick line in Fig.\ref{fig::deg_log} is corresponding to the middle block in Fig.\ref{fig::spy}.
+(b). The lower left thick line in Fig.\ref{fig::deg_log} is corresponding to the lowest right dense block in Fig.\ref{fig::spy}. And the upper right thick line in Fig.\ref{fig::deg_log} is corresponding to the upper left block in Fig.\ref{fig::spy}.
 
 \paragraph{Question 3}\mbox{} \\
 \noindent
 \textbf{Part 1} \\
+\noindent
+Main Problem \newline
+The goal of this paper is to extract community-like structures rather than graph-partitioning. The traditional methods, spectral clustering and multi-level graph partitioning can not yield good communities in the graph.
 
+\noindent
+Main Idea \newline
+They use undirected graphs, which is represented as a adjacant matrix. The matrix is square and symmetric. In such a matrix, the eigenvalues are non-zero and the singular vectors coincide with the non-null eigenvectors. To use the features in their research, they expect to see communities in the form of (near-)cliques or (near-)bi-partite cores among the nodes in the spokes. From the EE-plot, they found that the linear nature of spokes means that the scores of the nodes are linear correcletd; therefore, exploring dominant nodes along one singular vector should be sufficient to extract nodes of a community.
+
+\noindent
+Results \newline
+They use SpokEn to extract the communities in four Mobile Call graphs, which shows that SpokEn has successfully stopped at the termination criterion. Then they tested SpokEn with some real world graphs. Some typical results are given in figure 6. A bipartite from patent graph, a clique and a bipartite from provider-customers show that SpokEn works well.
 
 \noindent
 \textbf{Part 2} \\
@@ -119,7 +129,7 @@ $$
 
 \noindent
 (b). 
-\begin{figure}[!h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{figs/q3.jpg}
     \caption{Left singular vectors}
@@ -127,7 +137,17 @@ $$
 \end{figure}
 
 \noindent
-(c). We can identify from Fig.\ref{fig::vec} that there are three abnormal blocks in the sparse matrix. The first two left singular vectors' range are much bigger than the last three vectors. Let's explain it from the geometric meaning of SVD decomposition: $S$ means the scale transformation of the original matrix, while $U$ means the rotation to the matrix. 
+(c).
+Any abnormal block in the spy-plot is a (near-)clique or a (near-)bipartite in the graph. In the paper, they proved that when they increase the number of communities, the spoke pattern on the EE-plot will become more clear. In the abpve left singular value plot, we have two long spokes, which are corresponding to the two dense blocks in the spy-plot in \ref{fig::spy}.
+
+\noindent
+(d).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figs/q3_d.jpg}
+    \caption{Left singular vectors}
+    \label{fig::sub}
+\end{figure}
 
 
 \end{document}
