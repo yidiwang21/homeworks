@@ -73,19 +73,19 @@ s = diag(S);
 
 
 %%
-sx1(1:21165) = s(1);
-sx2(1:21165) = s(2);
-sx3(1:21165) = s(3);
-sx4(1:21165) = s(4);
-sx5(1:21165) = s(5);
-figure(3);
-plot(sx1, U(:,1), 'LineWidth',4); hold on
-plot(sx2, U(:,2), 'LineWidth',4); hold on
-plot(sx3, U(:,3), 'LineWidth',4); hold on
-plot(sx4, U(:,4), 'LineWidth',4); hold on
-plot(sx5, U(:,5), 'LineWidth',4); hold off
-xlabel('Singular values'); ylabel('Left singular vectors');
-title('Left singular vectors');
+% sx1(1:21165) = s(1);
+% sx2(1:21165) = s(2);
+% sx3(1:21165) = s(3);
+% sx4(1:21165) = s(4);
+% sx5(1:21165) = s(5);
+% figure(3);
+% plot(sx1, U(:,1), 'LineWidth',4); hold on
+% plot(sx2, U(:,2), 'LineWidth',4); hold on
+% plot(sx3, U(:,3), 'LineWidth',4); hold on
+% plot(sx4, U(:,4), 'LineWidth',4); hold on
+% plot(sx5, U(:,5), 'LineWidth',4); hold off
+% xlabel('Singular values'); ylabel('Left singular vectors');
+% title('Left singular vectors');
 
 %%
 figure(4);
@@ -119,35 +119,3 @@ ssa = sparse(sa);
 figure(5);
 spy(ssa);
 title('Top 100 nodes of singular vectors');
-
-%%
-
-gs = edgelist(:,1);
-gt = edgelist(:,2);
-G = graph(gs, gt);
-
-figure(6);
-subplot(1,5,1);
-sg1 = subgraph(G, n1);
-is1 = adjacency(sg1);
-spy(is1);
-
-subplot(1,5,2);
-sg2 = subgraph(G, n2);
-is2 = adjacency(sg2);
-spy(is2);
-
-subplot(1,5,3);
-sg3 = subgraph(G, n3);
-is3 = adjacency(sg3);
-spy(is3);
-
-subplot(1,5,4);
-sg4 = subgraph(G, n4);
-is4 = adjacency(sg4);
-spy(is4);
-
-subplot(1,5,5);
-sg5 = subgraph(G, n5);
-is5 = adjacency(sg5);
-spy(is5);
