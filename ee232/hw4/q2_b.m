@@ -16,7 +16,7 @@ B = [
 
 cvx_begin
     variables pg1(1,10) pg2(1,10) pg5(1,10) cl(3,10) th(4,10)
-    minimize 561+792*sum(pg1)+15.62*sum(pg1.^2) + 310+785*sum(pg2)+19.4*sum(pg2.^2) + 78+797*sum(pg5)+48.2*sum(pg5.^2);
+    minimize 561+792*sum(pg1)+15.62*sum(pg1*pg1') + 310+785*sum(pg2)+19.4*sum(pg2*pg2') + 78+797*sum(pg5)+48.2*sum(pg5*pg5');
     subject to
         pg1 >= 1.5; pg2 >= 1.5; pg5 >= 1.5;
         pg1 <= 5; pg2 <= 5; pg5 <= 5;
@@ -31,6 +31,8 @@ cvx_begin
                 -fxl(3,i)-cl(3,i);
                 pg5(i)] == B * [ th(1,i); th(2,i); th(3,i); th(4,i) ];
         end
+        abs(10*(-th(2,i))) <= 1.5;   % trans capacity between bus 1,3
+        abs(10*(th(1,i)-th(3,i))) <= 1.5;
 cvx_end
 
 %%
@@ -45,7 +47,7 @@ end
 
 t = 0:0.01:10;
 
-figure(1);
+figure(2);
 subplot(3,1,1);
 plot(t,cl1);
 title('Controllable Load at Bus 2');
@@ -56,6 +58,5 @@ subplot(3,1,3);
 plot(t,cl3);
 title('Controllable Load at Bus 4');
 
-% todo: including fixed load?
 load = fxl(1,:)+fxl(2,:)+fxl(3,:);
 par = max(load) / sum(load) * 10;

@@ -7,6 +7,8 @@ fxl(1,:) = [ 0.6 0.5 0.85 1.15 1.3 1.05 1.4 1.55 0.95 0.75 ];
 fxl(2,:) = [ 0.7 0.8 0.75 0.95 1.1 1.3 1.3 1.2 1.05 0.9 ];
 fxl(3,:) = [ 0.65 0.65 0.8 0.8 0.95 1.05 0.95 1.05 0.9 0.9 ];
 
+ep = [ 26 25 37 43 51 39 55 60 38 33 ];
+
 B = [
     -20 0 10 0;
     0 -30 10 10;
@@ -14,9 +16,18 @@ B = [
     0 10 10 -20;
     ];
 
+s = 0;
+
 cvx_begin
-    variables pg1(1,10) pg2(1,10) pg5(1,10) cl(3,10) th(4,10)
-    minimize 561+792*sum(pg1)+15.62*sum(pg1.^2) + 310+785*sum(pg2)+19.4*sum(pg2.^2) + 78+797*sum(pg5)+48.2*sum(pg5.^2);
+    variables pg1(1,10) pg2(1,10) pg5(1,10) cl(3,10) th(4,10);
+    sl = fxl+cl;
+    s = 0;
+    
+    for h = 1:10
+        s = [s,sum(sl(:,h))];
+    end
+        
+    minimize (sum(fxl)+sum(cl))*40+max(s)*80;
     subject to
         pg1 >= 1.5; pg2 >= 1.5; pg5 >= 1.5;
         pg1 <= 5; pg2 <= 5; pg5 <= 5;
@@ -33,7 +44,6 @@ cvx_begin
         end
 cvx_end
 
-%%
 cl1 = 0;
 cl2 = 0;
 cl3 = 0;
@@ -45,7 +55,7 @@ end
 
 t = 0:0.01:10;
 
-figure(1);
+figure(3);
 subplot(3,1,1);
 plot(t,cl1);
 title('Controllable Load at Bus 2');
@@ -56,6 +66,5 @@ subplot(3,1,3);
 plot(t,cl3);
 title('Controllable Load at Bus 4');
 
-% todo: including fixed load?
 load = fxl(1,:)+fxl(2,:)+fxl(3,:);
 par = max(load) / sum(load) * 10;
