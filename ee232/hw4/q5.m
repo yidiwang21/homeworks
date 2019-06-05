@@ -37,6 +37,8 @@ plot(tp,p/1000);
 ylim([-1 3]);
 xlabel('Time(minutes)'); ylabel('Power consumption(kW)');
 
+total_e = sum(p) / 12 / 1000;
+
 %%
 clear; clc;
 
@@ -76,6 +78,8 @@ plot(tp,p/1000);
 ylim([-1 3]);
 xlabel('Time(minutes)'); ylabel('Power consumption(kW)');
 
+total_e = sum(p) / 12 / 1000;
+
 %%
 clear; clc;
 
@@ -114,3 +118,5 @@ subplot(2,1,2);
 plot(tp,p/1000);
 ylim([-1 3]);
 xlabel('Time(minutes)'); ylabel('Power consumption(kW)');
+
+total_e = sum(p) / 12 / 1000;

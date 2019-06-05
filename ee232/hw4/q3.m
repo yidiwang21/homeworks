@@ -64,3 +64,6 @@ title('Controllable Load at Bus 4');
 
 load = fxl(1,:)+fxl(2,:)+fxl(3,:);
 par = max(load) / sum(load) * 10;
+
+loadt = load + cl(1,:) + cl(2,:) + cl(3,:);
+part = max(loadt) / sum(loadt) * 10;

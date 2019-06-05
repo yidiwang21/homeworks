@@ -16,18 +16,11 @@ B = [
     0 10 10 -20;
     ];
 
-s = 0;
-
 cvx_begin
-    variables pg1(1,10) pg2(1,10) pg5(1,10) cl(3,10) th(4,10);
-    sl = fxl+cl;
-    s = 0;
-    
-    for h = 1:10
-        s = [s,sum(sl(:,h))];
-    end
-        
-    minimize (sum(fxl)+sum(cl))*40+max(s)*80;
+    variables pg1(1,10) pg2(1,10) pg5(1,10) cl(3,10) th(4,10);     
+    sfxl = sum(sum(fxl,1));
+    scl = sum(sum(cl,1));
+    minimize sfxl*40+scl*40 + 80*max((sum(cl,1)+sum(fxl,1)));
     subject to
         pg1 >= 1.5; pg2 >= 1.5; pg5 >= 1.5;
         pg1 <= 5; pg2 <= 5; pg5 <= 5;
@@ -55,7 +48,7 @@ end
 
 t = 0:0.01:10;
 
-figure(3);
+figure(4);
 subplot(3,1,1);
 plot(t,cl1);
 title('Controllable Load at Bus 2');
@@ -68,3 +61,6 @@ title('Controllable Load at Bus 4');
 
 load = fxl(1,:)+fxl(2,:)+fxl(3,:);
 par = max(load) / sum(load) * 10;
+
+loadt = load + cl(1,:) + cl(2,:) + cl(3,:);
+part = max(loadt) / sum(loadt) * 10;
