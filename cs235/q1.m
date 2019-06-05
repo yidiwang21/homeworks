@@ -21,9 +21,9 @@ xunit1 = r * cos(th) + x1;
 yunit1 = r * sin(th) + y1;
 xunit2 = r * cos(th) + x2;
 yunit2 = r * sin(th) + y2;
-% xunit3 = r3 * cos(th) + x3;
-% yunit3 = r3 * sin(th) + y3;
-% plot(xunit1, yunit1, 'r', xunit2, yunit2, 'r', xunit3, yunit3, 'r'); hold off
+xunit3 = r3 * cos(th) + x3;
+yunit3 = r3 * sin(th) + y3;
+plot(xunit1, yunit1, 'r', xunit2, yunit2, 'r', xunit3, yunit3, 'r'); hold on
 plot(xunit1, yunit1, 'r', xunit2, yunit2, 'r'); hold off
 title('Sparse Matrix');
 
@@ -39,6 +39,7 @@ end
 %%
 dx = logspace(0, 5);
 figure(2);
+% hist(deg_node);
 loglog(deg_node, '*'); 
 grid on; hold on
 rectangle('Position',[450,200,650,150],...
@@ -48,12 +49,12 @@ hold on;
 rectangle('Position',[1900,1300,1700,500],...
          'LineWidth',2,...
          'EdgeColor','r');
-% hold on;
-% rectangle('Position',[14000,1500,3600,500],...
-%          'LineWidth',2,...
-%          'EdgeColor','r');
+hold on;
+rectangle('Position',[14000,1500,3600,500],...
+         'LineWidth',2,...
+         'EdgeColor','r');
 hold off;
-% view([-90 90])
+view([90 90])
 ylabel('Degree'); xlabel('Node count');
 title('Degree Distribution in log-log scale');
 
@@ -88,12 +89,17 @@ title('Left singular vectors');
 
 %%
 figure(4);
-hold on;
-quiver(0, 0, U(1,1), U(21165,1), s(1), 'LineWidth', 2, 'ShowArrowHead', 'off');
-quiver(0, 0, U(1,2), U(21165,2), s(2), 'LineWidth', 2, 'ShowArrowHead', 'off');
-quiver(0, 0, U(1,3), U(21165,3), s(3), 'LineWidth', 2, 'ShowArrowHead', 'off');
-quiver(0, 0, U(1,4), U(21165,4), s(4), 'LineWidth', 2, 'ShowArrowHead', 'off');
-quiver(0, 0, U(1,5), U(21165,5), s(5), 'LineWidth', 2, 'ShowArrowHead', 'off');
+plot(U(:,1), 'LineWidth', 2); hold on
+plot(U(:,2), 'LineWidth', 2); hold on
+plot(U(:,3), 'LineWidth', 2); hold on 
+plot(U(:,4), 'LineWidth', 2); hold on
+plot(U(:,5), 'LineWidth', 2); hold on
+% hold on;
+% quiver(0, 0, U(1,1), U(21165,1), s(1), 'LineWidth', 2, 'ShowArrowHead', 'off');
+% quiver(0, 0, U(1,2), U(21165,2), s(2), 'LineWidth', 2, 'ShowArrowHead', 'off');
+% quiver(0, 0, U(1,3), U(21165,3), s(3), 'LineWidth', 2, 'ShowArrowHead', 'off');
+% quiver(0, 0, U(1,4), U(21165,4), s(4), 'LineWidth', 2, 'ShowArrowHead', 'off');
+% quiver(0, 0, U(1,5), U(21165,5), s(5), 'LineWidth', 2, 'ShowArrowHead', 'off');
 hold off;
 title('Left singular vectors');
 
@@ -105,11 +111,22 @@ title('Left singular vectors');
 [u4, n4] = maxk(abs(U(:,4)), 100);
 [u5, n5] = maxk(abs(U(:,5)), 100);
 
+sa = zeros(21165);
+sa(n1,n1) = 1; 
+sa(n2,n2) = 1; sa(n3,n3) = 1; sa(n4,n4) = 1; sa(n5,n5) = 1;
+ssa = sparse(sa);
+
+figure(5);
+spy(ssa);
+title('Top 100 nodes of singular vectors');
+
+%%
+
 gs = edgelist(:,1);
 gt = edgelist(:,2);
 G = graph(gs, gt);
 
-figure(5);
+figure(6);
 subplot(1,5,1);
 sg1 = subgraph(G, n1);
 is1 = adjacency(sg1);
