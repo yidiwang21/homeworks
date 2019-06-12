@@ -3,6 +3,9 @@
 \usepackage{fullpage,epsfig,latexsym,picinpar,amsbsy,amsmath,algorithm,mathtools}
 \usepackage[noend]{algpseudocode}
 \usepackage{xspace}
+\usepackage{blindtext}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 \usepackage{listings}
 \usepackage{color}
@@ -28,24 +31,64 @@
   tabsize=3
 }
 
-\begin{document}
+\title{EE232 Final Project Report}
+\author{Yidi Wang}
 
-\centerline{\large \bf EE232 Final Project Report}
-\centerline{Yidi Wang}
-\centerline{862114701}
+\begin{document}
+\maketitle
+
+% \centerline{\large \bf EE232 Final Project Report}
+% \centerline{Yidi Wang}
+% \centerline{862114701}
 
 \vskip 0.1in
 
 
-\paragraph{Summary of Contributions} \mbox{} \\
-Nowadays, the use of photovoltaic (PV) is widespread because of the high demand of $CO_2$ emission reduction and renewable energy. However, the power generation from PV is not stable because people cannot control the light intensity from the sun and the ambient temperature. Therefore, how to match the intermittent energy production with the dynamic demand is a major challenge for the use of PV. The solution is to connect a energy storage unit to the network. This integration is currently limited by two constraints: regulations and power flow managment. In this paper, the authors focus on the power flow managment problem, which is about how to optimize the use of storage, the use of the PV source, and to match the local production with the local consumption. They proposed an optimal power managment mechanism for grid connected photovoltaic (PV) systems with storage. 
+\section{Summary}
+\paragraph{Introduction} \mbox{} \\
+Nowadays, the use of photovoltaic (PV) is widespread because of the high demand of $CO_2$ emission reduction and renewable energy. However, the power generation from PV is not stable because people cannot control the light intensity from the sun and the ambient temperature. Therefore, how to match the intermittent energy production with the dynamic demand is a major challenge for the use of PV. The solution is to connect a energy storage unit to the network. This integration is currently limited by two constraints: regulations and power flow managment. In this paper, the authors focus on the power flow managment problem, which is about how to optimize the use of storage, the use of the PV source, and to match the local production with the local consumption. They proposed an optimal power managment mechanism for grid connected PV systems with storage. 
 
+\paragraph{System Modeling} \mbox{} \\
+Solving the optimal power flow managment problem need threee stages: forecasting stages, predictive optimization stage and load command stage. The problem is solved in the predictive optimization stage, using the prediction from the priori knowledge of future from the first stage. They choose dynamic programming (DP) as the tool to solve the optimization problem.
 
+In the system modeling, they considered the grid as a perfect power sink or source. The network contains three major conponents: PV generator, batteries and converter. The PV generator is modeled by a linear power source according to the ambient temperature and the irradiance level. 
+% \begin{gather*}
+%     P_{\mathrm{PV}} = \bigg[
+%     P_{\mathrm{PV,STC}} \times \frac{G_T}{1000} \times 
+%     [ 1 - \gamma \times (T_j - 25) ] \bigg] 
+% \end{gather*}
 
-\paragraph{Critical Review} \mbox{} \\
+They considered three features of flat plate lead acid batteries. The first one is state of charge (SOC). The second is the aging of the battery, which is indicated by state of health (SOH). They choose an aging coefficient $Z = 3.10^{-4}$ for lead acid technology. The third one is voltage, which has been considered linear in charge and discharge as a function of SOC.
+% \begin{gather*}
+%   \mathrm{SOC} = \frac{C(t)}{C_{\mathrm{ref}}(t)} \\
+%   \mathrm{SOH}(t) = \frac{C_{\mathrm{ref}}(t - \Delta t)}{C_{\mathrm{ref,nom}}} - 
+%     Z \times [ \mathrm{SOC}(t - \Delta t) - \mathrm{SOC}(t)]  \\
+%   V_{\mathrm{BAT(charging)}}(t) = [12.94 + 1.46 \times \mathrm{SOC}(t)] \times N_{\mathrm{BAT \_ S}} \\
+%   V_{\mathrm{BAT(discharging)}}(t) = [12.13 + 1.54 \times (1 - \mathrm{SOC}(t))]
+% \end{gather*}
 
+The last considered conponent is converter, which is modeled according to their efficiency as a function of the input normalized power, where losses are assumed to be a quadratic function.
 
-\paragraph{Improvement} \mbox{} \\
+\paragraph{Objective} \mbox{} \\
+The objective is to find the optimal sequence of SOC transition from the initial time to the final time with the lowest cash flow (CF) value. The transition expression is given by:
+\begin{gather*}
+  \mathrm{Min(CF)} = \mathrm{Min} \sum_{t=t_0}^T [\mathrm{CR}(t) + \mathrm{CP}(t)]
+\end{gather*}
+where "CR" stands for the cash received and "CP" stands for cash paid.
+
+For the evaluation, they deployed the design onto a microcontroller and tested in real-time operation using the RTLab experimental bench. The results are compared with the ruled-based strategy in the same condition. In the simulation over 24 hours, the day-ahead predictive optimization can provide around 13\% of gain on the electricity bill.
+
+\section{Critical Review}
+The results shown in the paper is not very good. The predicted scheduling is not close to what really happened. The system modeling in the paper is built on the ideal scenarios. The PV generator is expected to charge the battery when the loads and the grid are not drawing much power. However, in reality, as the evaluation part shows, the PV power is not optimized as it is mainly used to feed the grid instead of charging the battery. The results of ruled-based implementation shows that the battery is almost fully charged.
+
+I think the given experiment results over 24 hours are not sufficient. In their expectation, the final SOC and the initial SOC should be similar over a day. They started the experiment when the battery is half-charged. They should at least continue the experiment for another day to see the SOC behavior if the SOC of the last day is almost full.
+
+\section{Improvement}
+For the first issue I mention in the above paragraph, that the PV generator is always charging the battery instead of feeding the grid, there are lots of uncertainty in the prediction. In the modeling, the power load of the battery is only constrained within a power range in which the battery can operate normally. 
+
+The naive sulution should be adding constraints onto the transimission lines from PV generator to the energy storage unit to limit the power that the battery can draw from the generator, forcing more power flows to the grid. But the power flow to the battery is still hard to control and it cannot be dynamically adopted to the PV power generation rate.
+
+So I think maybe a transmission line that can dynamically change its capacity according to the demand is needed. Or equivalently, we can divide the capacity storage unit to smaller energy quantums with some capacity limits on the transimission lines to the batteries, and that is a distributed battery network. By independently switching on/off the connections to the batteries, we can schedule and control the power to the batteries more smartly.
 
 
 
