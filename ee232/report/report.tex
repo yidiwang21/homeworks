@@ -70,7 +70,7 @@ They considered three features of flat plate lead acid batteries. The first one 
 The last considered conponent is converter, which is modeled according to their efficiency as a function of the input normalized power, where losses are assumed to be a quadratic function.
 
 \paragraph{Objective} \mbox{} \\
-The objective is to find the optimal sequence of SOC transition from the initial time to the final time with the lowest cash flow (CF) value. The transition expression is given by:
+The objective is to find the optimal sequence of SOC transition from the initial time to the final time with the lowest cash flow (CF) value. The transition equation is given by:
 \begin{gather*}
   \mathrm{Min(CF)} = \mathrm{Min} \sum_{t=t_0}^T [\mathrm{CR}(t) + \mathrm{CP}(t)]
 \end{gather*}
@@ -79,17 +79,22 @@ where "CR" stands for the cash received and "CP" stands for cash paid.
 For the evaluation, they deployed the design onto a microcontroller and tested in real-time operation using the RTLab experimental bench. The results are compared with the ruled-based strategy in the same condition. In the simulation over 24 hours, the day-ahead predictive optimization can provide around 13\% of gain on the electricity bill.
 
 \section{Critical Review}
-The results shown in the paper is not very good. The predicted scheduling is not close to what really happened. The system modeling in the paper is built on the ideal scenarios. The PV generator is expected to charge the battery when the loads and the grid are not drawing much power. However, in reality, as the evaluation part shows, the PV power is not optimized as it is mainly used to feed the grid instead of charging the battery. The results of ruled-based implementation shows that the battery is almost fully charged.
+The results shown in the paper is not very good. The predicted scheduling is not close to what really happened. The system modeling in the paper is built on the ideal scenarios. As shown in FIg.16 in the paper, the curves are not overlapped at all except the initial state. The PV generator is expected to charge the battery when the loads and the grid are not drawing much power. However, in reality, as the evaluation part shows, the PV power is not optimized as it is mainly used to feed the grid instead of charging the battery. The results of ruled-based implementation shows that the battery is almost fully charged.
 
-I think the given experiment results over 24 hours are not sufficient. In their expectation, the final SOC and the initial SOC should be similar over a day. They started the experiment when the battery is half-charged. They should at least continue the experiment for another day to see the SOC behavior if the SOC of the last day is almost full.
+The given experiment results over 24 hours are not sufficient. In their expectation, the final SOC and the initial SOC should be similar over a day. They started the experiment when the battery is half-charged. They should at least continue the experiment for another day to see the SOC behavior if the SOC of the last day is almost full.
+
+If one more experiment with a initial SOC being 100\%, I can infer that the battery behavior in the predictive curve would discahrge first, then stay at the half-charged state, while the ruled-based curve would always stays at a almost fully-charged state.
 
 \section{Improvement}
 For the first issue I mention in the above paragraph, that the PV generator is always charging the battery instead of feeding the grid, there are lots of uncertainty in the prediction. In the modeling, the power load of the battery is only constrained within a power range in which the battery can operate normally. 
 
 The naive sulution should be adding constraints onto the transimission lines from PV generator to the energy storage unit to limit the power that the battery can draw from the generator, forcing more power flows to the grid. But the power flow to the battery is still hard to control and it cannot be dynamically adopted to the PV power generation rate.
 
-So I think maybe a transmission line that can dynamically change its capacity according to the demand is needed. Or equivalently, we can divide the capacity storage unit to smaller energy quantums with some capacity limits on the transimission lines to the batteries, and that is a distributed battery network. By independently switching on/off the connections to the batteries, we can schedule and control the power to the batteries more smartly.
+Maybe a transmission line that can dynamically change its capacity according to the demand is needed. But it is hard to be achieved. Or equivalently, we can divide the capacity storage unit to smaller energy quantums with some capacity limits on the transimission lines to the batteries, and that is a distributed battery network. By independently switching on/off the connections to the batteries, we can schedule and control the power to the batteries more smartly.
 
+If distributed batteries are used in the grid, we then need a monitor to keep track of a sequence of $\mathrm{SOC}[1,...,n]$. At the end of every time slice, the algorithm will choose the connections to batteries to be switched on or off in the next time slice. The amount of needed power to the batteries is predicted based on the priori knowledge. The switching decisions can be made by a greedy algorithm. The battery with lower SOC will have a higher priority to be chosen.
+
+In this way, we can have a better control over the power flow into the storage units. In the system architecture, we need to add a module inside predictive layer, where a battery monitor and a greedy algorithm is implemented. The monitor will supervise the SOC of batteries, sort them in a ascending order, and the algorithm will decide which battery connections to the network should be switched.
 
 
 \end{document}
